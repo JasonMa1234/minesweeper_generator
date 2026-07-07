@@ -4,12 +4,52 @@
 
 int main() {
     // Define game specifications (Standard Beginner Board: 9x9 with 10 mines)
-    int height = 9;
-    int width = 9;
-    int mines = 10;
+    int height, width, mines, firstClickX, firstClickY;
+
+    std::cout << "=== Minesweeper Custom Setup ===\n";
+    
+    std::cout << "Enter board height: ";
+    std::cin >> height;
+
+    std::cout << "Enter board width: ";
+    std::cin >> width;
+
+    std::cout << "Enter number of mines: ";
+    std::cin >> mines;
+
+    std::cout << "Enter row of the first click: ";
+    std::cin >> firstClickY;
+
+    std::cout << "Enter column of the first click: ";
+    std::cin >> firstClickX;
+
+    if (mines <= 0 || mines >= (height * width)) {
+        std::cout << "\n[Warning] Invalid mine count. Adjusting to a safe number.\n";
+        mines = (height * width) / 5; 
+    }
+
+    if (firstClickY < 0) {
+        std::cout << "\n[Warning] Y coordinate too small. Adjusting to a safe number.\n";
+        firstClickY = 0;
+    }
+
+    if (firstClickY >= height) {
+        std::cout << "\n[Warning] Y coordinate too big. Adjusting to a safe number.\n";
+        firstClickY = height - 1;
+    }
+
+    if (firstClickX < 0) {
+        std::cout << "\n[Warning] X coordinate too small. Adjusting to a safe number.\n";
+        firstClickX = 0;
+    }
+
+    if (firstClickX >= width) {
+        std::cout << "\n[Warning] Y coordinate too big. Adjusting to a safe number.\n";
+        firstClickX = width - 1;
+    }
 
     std::cout << "Initializing MineSweeperGenerator (" << height << "x" << width << ", Mines: " << mines << ")..." << std::endl;
-    MineSweeperGenerator generator(height, width, mines);
+    MineSweeperGenerator generator(height, width, mines, firstClickY, firstClickX);
 
     std::cout << "Generating random board on the heap..." << std::endl;
     // Catch the returned heap-allocated vector using a unique_ptr

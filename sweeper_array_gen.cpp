@@ -3,8 +3,8 @@
 #include <random>
 #include <algorithm>
 
-MineSweeperGenerator::MineSweeperGenerator(int h, int w, int mines)
-    : height(h), width(w), totalMines(mines) {}
+MineSweeperGenerator::MineSweeperGenerator(int h, int w, int mines, int firstY, int firstX)
+    : height(h), width(w), totalMines(mines), firstRow(firstY), firstColumn(firstX) {}
 
 void MineSweeperGenerator::layMines(std::vector<std::uint8_t>& rawGrid) {
     for (int i = 0; i < totalMines; i++) {
@@ -14,6 +14,16 @@ void MineSweeperGenerator::layMines(std::vector<std::uint8_t>& rawGrid) {
     std::random_device rd;
     std:: mt19937 g(rd());
     std:: shuffle(rawGrid.begin(), rawGrid.end(), g);
+
+    int firstClickIndex = firstRow * width + firstColumn;
+    if (rawGrid[firstClickIndex] == IS_MINE) {
+        for (int i = 0; i < height * width; i++) {
+            if (rawGrid[i] != IS_MINE) {
+                std::swap(rawGrid[firstClickIndex], rawGrid[i]);
+                break; 
+            }
+        }
+    }
 
     const int diffRow[] = {-1, -1, -1, 0, 0, 1, 1, 1};
     const int diffColumn[] = {-1,  0,  1, -1, 1, -1, 0, 1}; 

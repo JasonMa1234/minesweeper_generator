@@ -15,11 +15,13 @@ private:
     int height; 
     int width; 
     int totalMines;
+    int firstRow;
+    int firstColumn;
 
     void layMines(std::vector<std::uint8_t>& rawGrid);
 
 public:
-    MineSweeperGenerator(int h, int w, int mines);
+    MineSweeperGenerator(int h, int w, int mines, int firstY, int firstX);
     
     std::unique_ptr<std::vector<std::uint8_t>> generateBoard();
 };
