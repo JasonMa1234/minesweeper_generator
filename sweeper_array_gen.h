@@ -1,5 +1,5 @@
-#ifndef MINESWEEPER_H
-#define MINESWEEPER_H
+#ifndef SWEEPER_ARRAY_GEN_H
+#define SWEEPER_ARRAY_GEN_H
 
 #include <vector>
 #include <cstdint>
